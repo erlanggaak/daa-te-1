@@ -1,36 +1,7 @@
 import random
 import generate_tc
 
-def randomized_quick_sort(arr):
-    if len(arr) <= 1:
-        return arr
-
-    # Pilih elemen pivot secara acak
-    pivot_index = random.randint(0, len(arr) - 1)
-    pivot = arr[pivot_index]
-
-    # Inisialisasi list untuk elemen yang lebih kecil, sama, dan lebih besar dari pivot
-    lesser = []
-    equal = []
-    greater = []
-
-    # Pisahkan elemen-elemen ke dalam tiga list berdasarkan hubungan dengan pivot
-    for element in arr:
-        if element < pivot:
-            lesser.append(element)
-        elif element == pivot:
-            equal.append(element)
-        else:
-            greater.append(element)
-
-    # Rekursif sorting pada elemen-elemen yang lebih kecil dan lebih besar dari pivot
-    sorted_lesser = randomized_quick_sort(lesser)
-    sorted_greater = randomized_quick_sort(greater)
-
-    # Gabungkan hasil sorting
-    return sorted_lesser + equal + sorted_greater
-
-def randomized_quick_sort_inplace(arr, low, high):
+def randomized_quick_sort(arr, low, high):
     if low < high:
         # Pilih elemen pivot secara acak
         pivot_index = random.randint(low, high)
@@ -42,8 +13,8 @@ def randomized_quick_sort_inplace(arr, low, high):
         partition_index = partition(arr, low, high)
         
         # Rekursif sorting pada partisi-partisi
-        randomized_quick_sort_inplace(arr, low, partition_index - 1)
-        randomized_quick_sort_inplace(arr, partition_index + 1, high)
+        randomized_quick_sort(arr, low, partition_index - 1)
+        randomized_quick_sort(arr, partition_index + 1, high)
 
 def partition(arr, low, high):
     pivot = arr[high]
@@ -61,7 +32,7 @@ def main():
     # Contoh penggunaan
     a_list = generate_tc.generate_random(20)
     print(a_list)
-    randomized_quick_sort_inplace(a_list, 0, len(a_list) - 1)
+    randomized_quick_sort(a_list, 0, len(a_list) - 1)
     print(a_list)
 
 if __name__ == "__main__":
